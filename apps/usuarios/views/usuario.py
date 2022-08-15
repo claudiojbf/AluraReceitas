@@ -5,6 +5,7 @@ from receitas.models import Receita
 
 
 def cadastro(request):
+    """Cadastra uma nova pessoa no sistema """
     if request.method =='POST':
         nome = request.POST['nome']
         email = request.POST['email']
@@ -32,6 +33,7 @@ def cadastro(request):
     return render(request, 'usuarios/cadastro.html')
 
 def login(request):
+    """Realiza o Login de uma pessoa no sistema"""
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['senha']
@@ -46,10 +48,12 @@ def login(request):
     return render(request, 'usuarios/login.html')
 
 def logout(request):
+    """Desconecta uma pessoa do sistema"""
     auth.logout(request)
     return redirect('index')
 
 def dashboard(request):
+    """Direciona uma pessoa para o dashbord enviando as informações nescessarias"""
     if request.user.is_authenticated:
         user = request.user.id
         receitas = Receita.objects.order_by('-data_receita').filter(pessoa = user)
